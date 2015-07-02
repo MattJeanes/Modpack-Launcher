@@ -1,0 +1,10 @@
+C:\Users\Matt\AppData\Local\Temporary Projects\Modpack\bin\Debug\Modpack.exe.config
+C:\Users\Matt\BitTorrent Sync\College\Computing\Projects\Modpack\Modpack\bin\Debug\Modpack.exe.config
+C:\Users\Matt\BitTorrent Sync\College\Computing\Projects\Modpack\Modpack\bin\Debug\Modpack.exe
+C:\Users\Matt\BitTorrent Sync\College\Computing\Projects\Modpack\Modpack\bin\Debug\Modpack.pdb
+C:\Users\Matt\BitTorrent Sync\College\Computing\Projects\Modpack\Modpack\obj\Debug\Modpack.Properties.Resources.resources
+C:\Users\Matt\BitTorrent Sync\College\Computing\Projects\Modpack\Modpack\obj\Debug\Modpack.csproj.GenerateResource.Cache
+C:\Users\Matt\BitTorrent Sync\College\Computing\Projects\Modpack\Modpack\obj\Debug\Modpack.exe
+C:\Users\Matt\BitTorrent Sync\College\Computing\Projects\Modpack\Modpack\obj\Debug\Modpack.pdb
+C:\Users\Matt\BitTorrent Sync\College\Computing\Projects\Modpack\Modpack\obj\Debug\Modpack.form.resources
+C:\Users\Matt\BitTorrent Sync\College\Computing\Projects\Modpack\Modpack\obj\Debug\Modpack.csprojResolveAssemblyReference.cache
