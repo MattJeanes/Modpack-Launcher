@@ -33,7 +33,7 @@ namespace Modpack
             WorkerSupportsCancellation = true
         };
 
-        int launcherversion = 5;
+        int launcherversion = 6;
 
         bool downloadprogress = true;
         bool first = true;
@@ -43,6 +43,7 @@ namespace Modpack
         bool preparekill = false;
         bool relaunching = false;
 
+        static string site = "https://mattjeanes.com/data/modpack/";
         static string cd = Directory.GetCurrentDirectory();
         static string mc = cd + "\\.minecraft";
         static string modsf = mc + "\\mods";
@@ -140,7 +141,7 @@ namespace Modpack
                     checklogin = false;
                 }
             }
-            if (!str.Contains("Stream closed"))
+            if (!str.Contains("Stream closed") && !str.Contains("Attempting to download") && !str.Contains("Finished downloading"))
             {
                 consolewrite(str);
             }
@@ -357,17 +358,17 @@ namespace Modpack
         private void beginupdatecheck()
         {
             consoleinfo("Checking for updates");
-            webclient.DownloadDataAsync(new Uri("http://mattjeanes.com/data/modpack/launcherversion.txt"), "launcherversion");
+            webclient.DownloadDataAsync(new Uri(site + "launcherversion.txt"), "launcherversion");
         }
 
         private void updatemods()
         {
-            webclient.DownloadDataAsync(new Uri("http://mattjeanes.com/data/modpack/modlist.php"), "modlist");
+            webclient.DownloadDataAsync(new Uri(site + "modlist.php"), "modlist");
         }
 
         private void finishmodupdatecheck()
         {
-            byte[] raw = webclient.DownloadData(new Uri("http://mattjeanes.com/data/modpack/modlist.php"));
+            byte[] raw = webclient.DownloadData(new Uri(site + "modlist.php"));
             string result = System.Text.Encoding.UTF8.GetString(raw);
             StreamWriter sw = File.CreateText(modlist);
             sw.Write(result);
@@ -391,7 +392,7 @@ namespace Modpack
         {
             consoleinfo("Updating modpack");
             consoleinfo("Downloading modpack");
-            webclient.DownloadFileAsync(new Uri("http://mattjeanes.com/data/modpack/modpack.zip"), zip, "modpack");
+            webclient.DownloadFileAsync(new Uri(site + "modpack.zip"), zip, "modpack");
         }
 
         private void updatemods(List<string> add, List<string> rem, string[] servermods)
@@ -438,7 +439,7 @@ namespace Modpack
             {
                 Directory.CreateDirectory(dir);
             }
-            webclient.DownloadFileAsync(new Uri("http://mattjeanes.com/data/modpack/mods/" + mod), path, "mod");
+            webclient.DownloadFileAsync(new Uri(site + "mods/" + mod), path, "mod");
             double percent = Math.Min(((i + 1) / (double)modsdl.Count) * 100, 100);
             progressbar.Value = (int)percent;
         }
@@ -485,7 +486,7 @@ namespace Modpack
         private void updatelauncher()
         {
             consolewarn("Updating launcher");
-            webclient.DownloadFileAsync(new Uri("http://mattjeanes.com/data/modpack/launcher.exe"), updater, "launcher");
+            webclient.DownloadFileAsync(new Uri(site + "launcher.exe"), updater, "launcher");
         }
 
         private bool checkoverwrite(string name)
@@ -571,7 +572,7 @@ namespace Modpack
 
                     File.Delete(zip);
 
-                    byte[] raw = webclient.DownloadData(new Uri("http://mattjeanes.com/data/modpack/version.txt"));
+                    byte[] raw = webclient.DownloadData(new Uri(site + "version.txt"));
                     string result = System.Text.Encoding.UTF8.GetString(raw);
                     StreamWriter sw = File.CreateText(version);
                     sw.Write(result);
@@ -631,7 +632,7 @@ namespace Modpack
                 else
                 {
                     consoleinfo("Launcher up to date");
-                    webclient.DownloadDataAsync(new Uri("http://mattjeanes.com/data/modpack/version.txt"), "version");
+                    webclient.DownloadDataAsync(new Uri(site + "version.txt"), "version");
                 }
             }
             if (id == "version")
