@@ -33,7 +33,7 @@ namespace Modpack
             WorkerSupportsCancellation = true
         };
 
-        int launcherversion = 6;
+        int launcherversion = 8;
 
         bool downloadprogress = true;
         bool first = true;
@@ -161,7 +161,7 @@ namespace Modpack
         {
             form_Resize(sender, e);
 
-            consoleinfo("Launcher loaded");
+            consoleinfo("Launcher version " + launcherversion + " loaded");
 
             updatecheck();
         }
@@ -239,8 +239,8 @@ namespace Modpack
                 if (Directory.GetFiles(cd, "*", SearchOption.TopDirectoryOnly).Length > 1)
                 {
                     consolewarn("Launcher may be placed in wrong folder");
-                    DialogResult result = MessageBox.Show("This launcher should be placed in an empty folder as it will generate files and folders around it. Press OK to exit or Cancel to continue.", "Did you put this in the wrong folder?", MessageBoxButtons.OKCancel);
-                    if (result == DialogResult.OK)
+                    DialogResult result = MessageBox.Show("This launcher should be placed in an empty folder as it will generate files and folders around it. Press OK to continue or Cancel to exit.", "Did you put this in the wrong folder?", MessageBoxButtons.OKCancel);
+                    if (result == DialogResult.Cancel)
                     {
                         consolewarn("Exiting launcher");
                         Environment.Exit(0);
@@ -476,7 +476,7 @@ namespace Modpack
             {
                 consolewarn("Unable to set minecraft version");
             }
-            profiles[profilename]["javaArgs"] = "-XX:MaxPermSize=256M -Xms512M -Xmx4096M";
+            profiles[profilename]["javaArgs"] = "-Xmn2G -Xss4M -Xms4G -Xmx4G -XX:+UseLargePages -XX:+AggressiveOpts -XX:+UseFastAccessorMethods -XX:+OptimizeStringConcat -XX:+UseBiasedLocking -Xincgc -XX:MaxGCPauseMillis=10 -XX:SoftRefLRUPolicyMSPerMB=10000 -XX:+CMSParallelRemarkEnabled -XX:ParallelGCThreads=10 -Djava.net.preferIPv4Stack=true";
             File.Delete(profile);
             StreamWriter sw = File.CreateText(profile);
             sw.Write(JsonConvert.SerializeObject(o,Formatting.Indented));
